@@ -24,8 +24,8 @@ def send_signup_prompt(channel, user_data):
                 "title": user_data.get("email"),
                 "fields": [
                     {
-                        "title": "Twitter",
-                        "value": user_data.get("twitter", ""),
+                        "title": "Social/Homepage",
+                        "value": user_data.get("homepage", ""),
                         "short": True,
                     },
                     {
@@ -96,7 +96,11 @@ def handle_invite(payload):
 
     if not result.get("ok"):
         error = result.get("error", "")
-        if error in ("already_invited", "already_in_team"):
+        if error in (
+            "already_invited",
+            "already_in_team",
+            "already_in_team_invited_user",
+        ):
             return update_invite_message(
                 token,
                 payload,
@@ -146,7 +150,9 @@ def send_slack_invite(token, team_domain, email):
     response = requests.post(
         uri, data={"email": email, "token": token, "set_active": "true"}
     )
-    return response.json()
+    result = response.json()
+    logger.info("Invite response for %s: %s", email, result)
+    return result
 
 
 def update_invite_message(token, payload, new_attachment):
