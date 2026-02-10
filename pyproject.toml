@@ -1,0 +1,6 @@
+[tool.docformatter]
+make-summary-multi-line = true
+pre-summary-newline = true
+close-quotes-on-newline = true
+wrap-summaries = 88
+wrap-descriptions = 88
