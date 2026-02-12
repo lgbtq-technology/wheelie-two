@@ -107,7 +107,7 @@ def handle_invite(payload):
                 {
                     "title": "Already Invited",
                     "color": "#FFFF00",
-                    "text": f":information_desk_person::skin-tone-5: This person has already been invited! I can't resend invites, but you can <https://{domain}.slack.com/admin/invites|do it manually>.",
+                    "text": f":information_desk_person::skin-tone-5: This person has already been invited! If you *just* tried to invite them and got an error, that means it actually went through. I can't resend invites, but you can <https://{domain}.slack.com/admin/invites|do it manually>.",
                 },
             )
         elif error == "user_disabled":
