@@ -25,6 +25,9 @@ class Config:
     SIGNUP_CHANNEL = os.environ.get("SIGNUP_CHANNEL", "admin-signups")
     COC_URL = os.environ.get("COC_URL")
 
+    # Auto banned emails
+    BANNED_EMAILS = ["zekisuquc*@gmail.com"]
+
 
 class DevelopmentConfig(Config):
     DEBUG = True

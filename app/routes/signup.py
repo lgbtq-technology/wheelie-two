@@ -1,3 +1,4 @@
+import fnmatch
 import logging
 
 from flask import Blueprint, current_app, jsonify, redirect, request
@@ -20,6 +21,16 @@ def handle_signup():
 
     email = data.get("email")
     logger.info("Signup request: %s", email)
+
+    if email and any(
+        fnmatch.fnmatch(email, pat)
+        for pat in current_app.config.get("BANNED_EMAILS", [])
+    ):
+        logger.info("Silently dropping banned email: %s", email)
+        redirect_uri = data.get("redirect_uri")
+        if redirect_uri:
+            return redirect(redirect_uri)
+        return "signup request sent", 200
 
     channel = current_app.config["SIGNUP_CHANNEL"]
 
